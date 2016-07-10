@@ -5,21 +5,15 @@
 		"**/*.{ts,tsx}"
 	],
 	"compilerOptions": {
-		"jsx": "preserve",
-		"target": "es6",
+		"jsx": "react",
+		"target": "es5",
 		"noImplicitAny": false,
 		"removeComments": false,
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"module": "system",
 		"allowSyntheticDefaultImports": true
 	},
 	"files": [
-		"../typings/browser.d.ts",
-		"App.tsx"
-	],
-	"exclude": [],
-	"atom": {
-		"rewriteTsconfig": true
-	}
+		"../typings/index.d.ts"
+	]
 }

@@ -31,17 +31,10 @@ var config = {
 	module: {
 		loaders: [
 			{
-				test: /\.js$/,
-				loaders: envDep(
-					['react-hot', 'babel-loader'],
-					['babel-loader']
-				),
-				include: src_dir
-			}, {
 				test: /\.(tsx|ts)$/,
 				loaders: envDep(
-					['react-hot', 'babel-loader', 'ts-loader'],
-					['babel-loader', 'ts-loader']
+					['react-hot', 'ts-loader'],
+					['ts-loader']
 				),
 				include: src_dir
 			}, {
