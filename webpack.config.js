@@ -53,7 +53,9 @@ var config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "React TypeScript demo"
+            title: "React TypeScript demo",
+            template: require("html-webpack-template"),
+            appMountId: "app"
         }),
         new ExtractTextPlugin("[name].css?[hash]"),
         new webpack.LoaderOptionsPlugin({
