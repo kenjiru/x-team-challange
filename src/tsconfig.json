@@ -1,7 +1,6 @@
 {
 	"compileOnSave": false,
 	"filesGlob": [
-		"../typings/**/*.*.ts",
 		"**/*.{ts,tsx}"
 	],
 	"compilerOptions": {
@@ -12,8 +11,5 @@
 		"preserveConstEnums": true,
 		"sourceMap": true,
 		"allowSyntheticDefaultImports": true
-	},
-	"files": [
-		"../typings/index.d.ts"
-	]
+	}
 }

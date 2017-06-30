@@ -6,6 +6,8 @@
     "react-dom": "15.6.1"
   },
   "devDependencies": {
+    "@types/react": "15.0.24",
+    "@types/react-dom": "15.5.0",
     "autoprefixer": "^7.1.1",
     "autoprefixer-loader": "^3.2.0",
     "css-loader": "^0.28.4",
@@ -28,8 +30,7 @@
   },
   "scripts": {
     "debug": "webpack-dev-server --config webpack.config.js --hot -d",
-    "build": "rm -rf dist/** && webpack --config webpack.config.js --devtool source-map",
-    "typings": "typings install"
+    "build": "rm -rf dist/** && webpack --config webpack.config.js --devtool source-map"
   },
   "engines": {
     "npm": ">=2.0.0"
