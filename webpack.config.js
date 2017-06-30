@@ -11,7 +11,8 @@ var config = {
     devtool: "cheap-module-eval-source-map",
     context: __dirname,
     entry: {
-        app: src_dir + "/App.tsx"
+        app: src_dir + "/App.tsx",
+        vendor: ["react", "react-dom"]
     },
     output: {
         path: path.join(__dirname, "/dist"),
@@ -58,6 +59,10 @@ var config = {
             minimize: true,
             debug: false
         }),
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ["app", "vendor"],
+            filename: "[name].[hash].js"
+        }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
@@ -82,7 +87,8 @@ var config = {
     ],
     devServer: {
         contentBase: "./src",
-        hot: true
+        hot: true,
+        stats: "errors-only"
     }
 };
 
