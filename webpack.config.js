@@ -102,7 +102,17 @@ var config = {
     devServer: {
         contentBase: "./src",
         hot: true,
-        stats: "minimal"
+        stats: {
+            colors: true,
+            version: false,
+            hash: false,
+            source: false,
+            performance: true,
+            chunkModules: false,
+            chunks: false,
+            modules: false,
+            assets: false
+        }
     }
 };
 
