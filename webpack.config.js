@@ -2,12 +2,13 @@ var path = require("path");
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
+var BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 var src_dir = path.join(__dirname, "/src");
 const nodeEnv = process.env.NODE_ENV || "development";
 
 var config = {
-    cache : true,
+    cache: true,
     devtool: "cheap-module-eval-source-map",
     context: __dirname,
     entry: {
@@ -78,17 +79,20 @@ var config = {
             exclude: [
                 /vendor\.js/
             ],
-            filename: '[file].map[hash]',
+            filename: "[file].map[hash]",
             columns: false
         }),
         new webpack.DefinePlugin({
-            "process.env": { NODE_ENV: JSON.stringify(nodeEnv) }
+            "process.env": {NODE_ENV: JSON.stringify(nodeEnv)}
+        }),
+        new BundleAnalyzerPlugin({
+            openAnalyzer: false
         })
     ],
     devServer: {
         contentBase: "./src",
         hot: true,
-        stats: "errors-only"
+        stats: "minimal"
     }
 };
 
