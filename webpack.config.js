@@ -12,8 +12,7 @@ var config = {
     devtool: "cheap-module-eval-source-map",
     context: __dirname,
     entry: {
-        app: src_dir + "/App.tsx",
-        vendor: ["react", "react-dom"]
+        app: src_dir + "/App.tsx"
     },
     output: {
         path: path.join(__dirname, "/dist"),
@@ -60,10 +59,17 @@ var config = {
         ]
     },
     plugins: [
+        new webpack.DllReferencePlugin({
+            context: '.',
+            manifest: require('./dist/vendor-manifest.json')
+        }),
         new HtmlWebpackPlugin({
             title: "React TypeScript demo",
             template: require("html-webpack-template"),
-            appMountId: "app"
+            appMountId: "app",
+            scripts: [
+                "./dist/vendor.dll.js"
+            ]
         }),
         new ExtractTextPlugin("[name].css?[hash]"),
         new webpack.LoaderOptionsPlugin({
@@ -100,7 +106,7 @@ var config = {
         })
     ],
     devServer: {
-        contentBase: "./src",
+        contentBase: "./",
         hot: true,
         stats: {
             colors: true,

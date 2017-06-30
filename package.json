@@ -33,8 +33,9 @@
     "webpack-dev-server": "2.5.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --hot -d",
-    "build": "rm -rf dist/** && webpack"
+    "start": "npm run build-vendor && webpack-dev-server --hot -d",
+    "build": "rm -rf dist/** && npm run build-vendor && webpack",
+    "build-vendor": "webpack --config vendor.webpack.config.js"
   },
   "engines": {
     "npm": ">=2.0.0"
