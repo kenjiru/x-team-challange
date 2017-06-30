@@ -29,6 +29,14 @@ var config = {
     module: {
         loaders: [
             {
+                enforce: "pre",
+                test: /\.(tsx|ts)$/,
+                loader: "tslint-loader",
+                exclude: /(node_modules)/,
+                options: {
+                    typeCheck: true
+                }
+            }, {
                 test: /\.(tsx|ts)$/,
                 loader: "ts-loader",
                 exclude: /node_modules/

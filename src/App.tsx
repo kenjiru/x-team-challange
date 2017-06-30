@@ -1,10 +1,11 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
+import {ReactElement} from "react";
+import * as ReactDOM from "react-dom";
 
-import './App.less';
+import "./App.less";
 
 class App extends React.Component<any, any> {
-    render() {
+    public render(): ReactElement<any> {
         return (
             <div>
                 <h1>App title</h1>
