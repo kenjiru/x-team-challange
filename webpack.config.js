@@ -12,7 +12,7 @@ var config = {
     devtool: "cheap-module-eval-source-map",
     context: __dirname,
     entry: {
-        app: src_dir + "/App.tsx"
+        app: src_dir + "/app-bootstrap.tsx"
     },
     output: {
         path: path.join(__dirname, "/dist"),

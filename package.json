@@ -6,23 +6,36 @@
     "react-dom": "15.6.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.0.1",
+    "@types/enzyme": "2.8.0",
+    "@types/mocha": "^2.2.41",
     "@types/react": "15.0.24",
     "@types/react-dom": "15.5.0",
+    "@types/sinon": "^2.3.2",
     "autoprefixer": "^7.1.1",
     "autoprefixer-loader": "^3.2.0",
+    "chai": "^4.0.2",
     "css-loader": "^0.28.4",
+    "enzyme": "2.8.2",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.11.2",
     "html-minifier": "^3.1.0",
     "html-webpack-plugin": "~2.29.0",
     "html-webpack-template": "^6.0.1",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^11.0.0",
+    "jsdom-global": "^3.0.2",
     "less": "^2.7.1",
     "less-loader": "^4.0.4",
+    "mocha": "^3.4.2",
     "null-loader": "^0.1.1",
     "optimist": "^0.6.1",
     "react-hot-loader": "^3.0.0-beta.5",
+    "react-test-renderer": "^15.6.1",
+    "sinon": "^2.3.6",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.2.1",
+    "ts-node": "^3.1.0",
     "tslint": "^5.4.3",
     "tslint-loader": "^3.5.3",
     "typescript": "2.2.2",
@@ -35,7 +48,8 @@
   "scripts": {
     "start": "npm run build-vendor && webpack-dev-server --hot -d",
     "build": "rm -rf dist/** && npm run build-vendor && webpack",
-    "build-vendor": "webpack --config vendor.webpack.config.js"
+    "build-vendor": "webpack --config vendor.webpack.config.js",
+    "test": "mocha -R spec --recursive -r ts-node/register -r jsdom-global/register -r ignore-styles src/**/*.spec.ts src/**/*.spec.tsx"
   },
   "engines": {
     "npm": ">=2.0.0"
