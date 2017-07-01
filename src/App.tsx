@@ -8,7 +8,7 @@ class App extends React.Component<any, any> {
         return (
             <div className="app">
                 <h1>App title</h1>
-                <div>App content</div>
+                <div className="content">App content</div>
             </div>
         );
     }
