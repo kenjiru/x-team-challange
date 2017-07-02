@@ -19,7 +19,8 @@ describe("ShopStore", () => {
                 id: "foo",
                 size: 16,
                 price: 16.45,
-                date: "01-07-2017"
+                face: "( ͡° ͜ʖ ͡°)",
+                date: "Mon Jun 19 2017 11:30:43 GMT+0200 (CEST)"
             });
 
             expect(shopStore.items).to.have.length(1);

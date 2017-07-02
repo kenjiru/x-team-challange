@@ -1,8 +1,10 @@
+import * as _ from "lodash";
 import * as React from "react";
-import {EventHandler, MouseEvent} from "react";
+import {EventHandler, MouseEvent, ReactElement} from "react";
 import {observer} from "mobx-react";
 
 import {IProduct, ShopStore} from "../../model/ShopStore";
+import ProductItem from "../product-item/ProductItem";
 
 export class ProductList extends React.Component<IProductListProps, IProductListState> {
     public render(): React.ReactElement<any> {
@@ -14,9 +16,20 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                     Number of items:
                     <span className="num-items">{shopStore.items.length}</span>
                 </div>
+                <div className="list">
+                    {this.renderAllItems()}
+                </div>
                 <button onClick={this.handleAddItem}>Add item</button>
             </div>
         );
+    }
+
+    private renderAllItems(): ReactElement<any>[] {
+        return _.map(this.props.shopStore.items, this.renderItem);
+    }
+
+    private renderItem(product: IProduct): ReactElement<any> {
+        return <ProductItem product={product}/>;
     }
 
     private handleAddItem: EventHandler<MouseEvent<any>> = (ev: MouseEvent<any>): void => {
@@ -26,9 +39,10 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     private createDummyItem(): IProduct {
         return {
             id: "foo",
-            size: 16,
+            size: 36,
             price: 16.45,
-            date: "01-07-2017"
+            face: "( ͡° ͜ʖ ͡°)",
+            date: "Sun Jul 02 2017 05:49:02 GMT+0200 (CEST)"
         };
     }
 }
