@@ -10,6 +10,7 @@ describe("<ProductItem/>", () => {
         it("has the correct children", () => {
             const product: IProduct = {
                 id: "foo",
+                face: "( ͡° ͜ʖ ͡°)",
                 size: 16,
                 price: 16.45,
                 date: "01-07-2017"
