@@ -13,6 +13,11 @@ export class ShopStore {
     public addItem(item: IProduct): void {
         this.storeItems.push(item);
     }
+
+    @action
+    public addAllItems(items: IProduct[]): void {
+        this.storeItems.push(...items);
+    }
 }
 
 export interface IProduct {
