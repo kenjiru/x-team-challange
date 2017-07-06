@@ -10,11 +10,11 @@ superagentPromise(superagent);
 const API_HOST: string = "http://localhost:8000";
 
 export default class ApiService {
-    public static getProducts(): Promise<IProduct[]> {
+    public static getProducts(skip: number = 0, limit: number = 0): Promise<IProduct[]> {
         return superagent
             .get("/api/products")
             .use(prefix(API_HOST))
-            .end()
+            .query({limit, skip})
             .then((res: superagent.Response): IProduct[] => {
                 return NdjsonUtil.parse<IProduct>(res.text);
             });
