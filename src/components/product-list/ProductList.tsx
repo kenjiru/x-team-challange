@@ -59,7 +59,7 @@ interface IProductListState {
 }
 
 export interface IProductListProps {
-    shopStore: ShopStore;
+    shopStore?: ShopStore;
 }
 
 export default observer(["shopStore"], ProductList);
