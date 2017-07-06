@@ -3,9 +3,9 @@ import * as React from "react";
 import {EventHandler, MouseEvent, ReactElement} from "react";
 import {observer} from "mobx-react";
 
-import shopService from "../../services/ShopService";
 import {IProduct, ShopStore} from "../../model/ShopStore";
 import ProductItem from "../product-item/ProductItem";
+import LoadingIndicator from "../loading-indicator/LoadingIndicator";
 
 export class ProductList extends React.Component<IProductListProps, IProductListState> {
     public render(): React.ReactElement<any> {
@@ -20,6 +20,7 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                 <div className="list">
                     {this.renderAllItems()}
                 </div>
+                <LoadingIndicator/>
                 <button onClick={this.handleAddItem}>Add item</button>
                 <button onClick={this.getProducts}>Get items</button>
             </div>
@@ -31,11 +32,11 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     }
 
     private renderItem(product: IProduct): ReactElement<any> {
-        return <ProductItem product={product}/>;
+        return <ProductItem key={product.id} product={product}/>;
     }
 
-    private getProducts(): void {
-        shopService.getProducts();
+    private getProducts = (): void => {
+        this.props.shopStore.requestItems();
     }
 
     private handleAddItem: EventHandler<MouseEvent<any>> = (ev: MouseEvent<any>): void => {
