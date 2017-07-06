@@ -3,7 +3,7 @@ import * as React from "react";
 import {EventHandler, MouseEvent, ReactElement} from "react";
 import {observer} from "mobx-react";
 
-import {getProducts} from "../../services/ShopService";
+import ShopService from "../../services/ShopService";
 import {IProduct, ShopStore} from "../../model/ShopStore";
 import ProductItem from "../product-item/ProductItem";
 
@@ -35,7 +35,7 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     }
 
     private getProducts(): void {
-        getProducts();
+        ShopService.getProducts();
     }
 
     private handleAddItem: EventHandler<MouseEvent<any>> = (ev: MouseEvent<any>): void => {

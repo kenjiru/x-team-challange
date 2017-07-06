@@ -1,18 +1,15 @@
 import * as superagent from "superagent";
-import * as prefix from "superagent-prefix";
+import * as superagentPromise from "superagent-promise";
 
-import NdjsonUtil from "../util/NdjsonUtil";
+superagentPromise(superagent);
+
 import shopStore, {IProduct} from "../model/ShopStore";
+import ApiService from "./ApiService";
 
-const API_HOST: string = "http://localhost:8000";
-
-export function getProducts(): void {
-    superagent
-        .get("/api/products")
-        .use(prefix(API_HOST))
-        .end((err: Error, res: superagent.Response): void => {
-            const products: IProduct[] = NdjsonUtil.parse<IProduct>(res.text);
-
+export default class ShopService {
+    public static getProducts(): void {
+        ApiService.getProducts().then((products: IProduct[]) => {
             shopStore.addAllItems(products);
         });
+    }
 }
