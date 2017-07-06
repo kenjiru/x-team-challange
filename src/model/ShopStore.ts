@@ -1,22 +1,31 @@
 import {useStrict, observable, action} from "mobx";
+import {fromPromise} from "mobx-utils";
+
+import ApiService from "../services/ApiService";
 
 useStrict(true);
 
 export class ShopStore {
-    @observable private storeItems: IProduct[] = [];
+    private static LIMIT: number = 5;
 
-    public get items(): IProduct[] {
-        return this.storeItems;
-    }
+    @observable public items: IProduct[] = [];
+    @observable public requestItemsCall: any = fromPromise(Promise.resolve("foo"));
 
     @action
     public addItem(item: IProduct): void {
-        this.storeItems.push(item);
+        this.items.push(item);
     }
 
     @action
-    public addAllItems(items: IProduct[]): void {
-        this.storeItems.push(...items);
+    public requestItems(limit: number = ShopStore.LIMIT): void {
+        let requestPromise: Promise<IProduct[]> = ApiService.getProducts(this.items.length, limit);
+
+        this.requestItemsCall = fromPromise(requestPromise.then(this.handleRequestItems));
+    }
+
+    @action
+    private handleRequestItems = (products: IProduct[]): void => {
+        this.items.push(...products);
     }
 }
 
