@@ -17,5 +17,9 @@
       "dom",
       "es6"
     ]
-  }
+  },
+  "files": [
+    "./src/app-bootstrap.tsx",
+    "./types/index.d.ts"
+  ]
 }
