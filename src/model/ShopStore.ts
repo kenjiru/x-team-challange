@@ -6,10 +6,10 @@ import ApiService from "../services/ApiService";
 useStrict(true);
 
 export class ShopStore {
-    private static LIMIT: number = 5;
+    private static LIMIT: number = 20;
 
     @observable public items: IProduct[] = [];
-    @observable public requestItemsCall: any = fromPromise(Promise.resolve("foo"));
+    @observable public requestItemsCall: any = fromPromise(Promise.resolve(null));
 
     @action
     public addItem(item: IProduct): void {
@@ -20,7 +20,13 @@ export class ShopStore {
     public requestItems(limit: number = ShopStore.LIMIT): void {
         let requestPromise: Promise<IProduct[]> = ApiService.getProducts(this.items.length, limit);
 
-        this.requestItemsCall = fromPromise(requestPromise.then(this.handleRequestItems));
+        this.requestItemsCall = fromPromise(requestPromise);
+    }
+
+    @action
+    public addRequestedItems(): void {
+        this.requestItemsCall.promise.then(this.handleRequestItems);
+        this.requestItemsCall = fromPromise(Promise.resolve(null));
     }
 
     @action

@@ -1,27 +1,31 @@
 import * as _ from "lodash";
 import * as React from "react";
-import {EventHandler, MouseEvent, ReactElement} from "react";
+import {ReactElement} from "react";
 import {observer} from "mobx-react";
 
 import {IProduct, ShopStore} from "../../model/ShopStore";
 import ProductItem from "../product-item/ProductItem";
 import LoadingIndicator from "../loading-indicator/LoadingIndicator";
+import ScrollContainer from "../scroll-container/ScrollContainer";
+
+import "./ProductList.less";
 
 export class ProductList extends React.Component<IProductListProps, IProductListState> {
     public render(): React.ReactElement<any> {
         const shopStore: ShopStore = this.props.shopStore;
 
         return (
-            <div className="item-list">
+            <div className="product-list">
                 <div className="summary">
                     Number of items:
                     <span className="num-items">{shopStore.items.length}</span>
                 </div>
-                <div className="list">
+                <ScrollContainer className="list" onLoading={this.handleLoading}
+                                 canLoad={this.canLoad()}
+                                 onDisplay={this.handleDisplay}>
                     {this.renderAllItems()}
-                </div>
+                </ScrollContainer>
                 <LoadingIndicator/>
-                <button onClick={this.handleAddItem}>Add item</button>
                 <button onClick={this.getProducts}>Get items</button>
             </div>
         );
@@ -35,22 +39,25 @@ export class ProductList extends React.Component<IProductListProps, IProductList
         return <ProductItem key={product.id} product={product}/>;
     }
 
-    private getProducts = (): void => {
+    private handleLoading = (): void => {
+        console.log("handleLoading");
         this.props.shopStore.requestItems();
     }
 
-    private handleAddItem: EventHandler<MouseEvent<any>> = (ev: MouseEvent<any>): void => {
-        this.props.shopStore.addItem(this.createDummyItem());
+    private handleDisplay = (): void => {
+        console.log("handleDisplay");
+        this.props.shopStore.addRequestedItems();
     }
 
-    private createDummyItem(): IProduct {
-        return {
-            id: "foo",
-            size: 36,
-            price: 16.45,
-            face: "( ͡° ͜ʖ ͡°)",
-            date: "Sun Jul 02 2017 05:49:02 GMT+0200 (CEST)"
-        };
+    private canLoad(): boolean {
+        let requestItemsCall: any = this.props.shopStore.requestItemsCall;
+
+        return _.isNil(requestItemsCall.value) && requestItemsCall.state !== "pending";
+    }
+
+    private getProducts = (): void => {
+        this.props.shopStore.requestItems();
+        this.props.shopStore.addRequestedItems();
     }
 }
 
