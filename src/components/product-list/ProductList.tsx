@@ -18,8 +18,6 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     private containerHeight: number = 0;
 
     public componentDidMount(): void {
-        console.log(this.state);
-
         let initialNumElements: number = this.determineInitialNumElements();
 
         this.props.shopStore.requestItems(initialNumElements);

@@ -26,12 +26,12 @@ export class ShopStore {
     @action
     public addRequestedItems(): void {
         this.requestItemsCall.promise.then(this.handleRequestItems);
-        this.requestItemsCall = fromPromise(Promise.resolve(null));
     }
 
     @action
     private handleRequestItems = (products: IProduct[]): void => {
         this.items.push(...products);
+        this.requestItemsCall = fromPromise(Promise.resolve(null));
     }
 }
 
