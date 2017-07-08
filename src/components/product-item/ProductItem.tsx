@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import DateUtil from "../../util/DateUtil";
+import NumberUtil from "../../util/NumberUtil";
 import {IProduct} from "../../model/ShopStore";
 
 import "./ProductItem.less";
@@ -11,10 +12,14 @@ class ProductItem extends React.Component<IProductItemProps, IProductItemState> 
             <div className="product-item" style={this.getItemStyle()}>
                 <div className="face" style={this.getFaceStyle()}>{this.props.product.face}</div>
                 <div className="id">id: {this.props.product.id}</div>
-                <div className="price">price: {this.props.product.price}</div>
-                <div className="date">added: {this.getDate()} ago</div>
+                <div className="price">price: {this.getPrice()}</div>
+                <div className="date">added: {this.getDate()}</div>
             </div>
         );
+    }
+
+    private getPrice(): string {
+        return NumberUtil.formatCurrency(this.props.product.price);
     }
 
     private getItemStyle(): Object {
