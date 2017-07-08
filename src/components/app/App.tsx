@@ -11,8 +11,7 @@ class App extends React.Component<any, any> {
             <Provider shopStore={shopStore}>
                 <div className="app">
                     <h1>Discount Ascii Warehouse</h1>
-
-                    <ProductList />
+                    <ProductList/>
                 </div>
             </Provider>
         );

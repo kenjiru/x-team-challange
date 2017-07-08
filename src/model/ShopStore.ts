@@ -17,19 +17,34 @@ export class ShopStore {
     }
 
     @action
-    public requestItems(limit: number = ShopStore.LIMIT): void {
-        let requestPromise: Promise<IProduct[]> = ApiService.getProducts(this.items.length, limit);
+    public requestItems(sortType: SortType = "none", limit: number = ShopStore.LIMIT, skip: number = -1): void {
+        if (skip === -1) {
+            skip = this.items.length;
+        }
+
+        let requestPromise: Promise<IProduct[]> = ApiService.getProducts(sortType, limit, skip);
 
         this.requestItemsCall = fromPromise(requestPromise);
     }
 
     @action
-    public addRequestedItems(): void {
-        this.requestItemsCall.promise.then(this.handleRequestItems);
+    public replaceWithRequestedItems(): void {
+        this.requestItemsCall.promise.then(this.handleReplaceItems);
     }
 
     @action
-    private handleRequestItems = (products: IProduct[]): void => {
+    public addRequestedItems(): void {
+        this.requestItemsCall.promise.then(this.handleAddItems);
+    }
+
+    @action
+    private handleReplaceItems = (products: IProduct[]): void => {
+        this.items = products;
+        this.requestItemsCall = fromPromise(Promise.resolve(null));
+    }
+
+    @action
+    private handleAddItems = (products: IProduct[]): void => {
         this.items.push(...products);
         this.requestItemsCall = fromPromise(Promise.resolve(null));
     }
@@ -42,6 +57,8 @@ export interface IProduct {
     face: string;
     date: string;
 }
+
+export type SortType = "none" | "id" | "size" | "price";
 
 const shopStore: ShopStore = new ShopStore();
 export default shopStore;

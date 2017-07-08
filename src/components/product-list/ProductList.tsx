@@ -3,10 +3,11 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {observer} from "mobx-react";
 
-import {IProduct, ShopStore} from "../../model/ShopStore";
+import {IProduct, ShopStore, SortType} from "../../model/ShopStore";
 import ProductItem from "../product-item/ProductItem";
 import LoadingIndicator from "../loading-indicator/LoadingIndicator";
 import ScrollContainer from "../scroll-container/ScrollContainer";
+import SortOptions from "../sort-options/SortOptions";
 
 import "./ProductList.less";
 
@@ -17,10 +18,14 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     private containerWidth: number = 0;
     private containerHeight: number = 0;
 
+    public state: IProductListState = {
+        sortField: "none"
+    };
+
     public componentDidMount(): void {
         let initialNumElements: number = this.determineInitialNumElements();
 
-        this.props.shopStore.requestItems(initialNumElements);
+        this.props.shopStore.requestItems(this.state.sortField, initialNumElements);
         this.props.shopStore.addRequestedItems();
     }
 
@@ -29,9 +34,12 @@ export class ProductList extends React.Component<IProductListProps, IProductList
 
         return (
             <div className="product-list">
-                <div className="summary">
-                    Number of items:
-                    <span className="num-items">{shopStore.items.length}</span>
+                <div>
+                    <span className="summary">
+                        Number of items:
+                        <span className="num-items">{shopStore.items.length}</span>
+                    </span>
+                    <SortOptions onSort={this.handleSort} sortField={this.state.sortField}/>
                 </div>
                 <div ref={this.handleListRef}>
                     <ScrollContainer className="list"
@@ -42,7 +50,6 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                     </ScrollContainer>
                 </div>
                 <LoadingIndicator/>
-                <button onClick={this.getProducts}>Get items</button>
             </div>
         );
     }
@@ -56,6 +63,15 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                             height={ProductList.PRODUCT_HEIGHT}/>;
     }
 
+    private handleSort = (sortField: SortType): void => {
+        this.setState({
+            sortField
+        });
+
+        this.props.shopStore.requestItems(sortField, this.props.shopStore.items.length, 0);
+        this.props.shopStore.replaceWithRequestedItems();
+    }
+
     private handleListRef = (elem: any): any => {
         if (_.isNil(elem) === false) {
             this.containerWidth = elem.clientWidth;
@@ -64,7 +80,7 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     }
 
     private handleLoading = (): void => {
-        this.props.shopStore.requestItems();
+        this.props.shopStore.requestItems(this.state.sortField);
     }
 
     private handleDisplay = (): void => {
@@ -77,11 +93,6 @@ export class ProductList extends React.Component<IProductListProps, IProductList
         return _.isNil(requestItemsCall.value) && requestItemsCall.state !== "pending";
     }
 
-    private getProducts = (): void => {
-        this.props.shopStore.requestItems();
-        this.props.shopStore.addRequestedItems();
-    }
-
     private determineInitialNumElements(): number {
         const numItemsOnRow: number = Math.floor(this.containerWidth / ProductList.PRODUCT_WIDTH);
         const numRows: number = Math.ceil(this.containerHeight / ProductList.PRODUCT_HEIGHT);
@@ -91,7 +102,7 @@ export class ProductList extends React.Component<IProductListProps, IProductList
 }
 
 interface IProductListState {
-    iteration: number;
+    sortField?: SortType;
 }
 
 export interface IProductListProps {
