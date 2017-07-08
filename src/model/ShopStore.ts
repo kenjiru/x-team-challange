@@ -8,6 +8,8 @@ useStrict(true);
 export class ShopStore {
     private static LIMIT: number = 20;
 
+    private isResultHandled: boolean = false;
+
     @observable public items: IProduct[] = [];
     @observable public requestItemsCall: any = fromPromise(Promise.resolve(null));
 
@@ -25,16 +27,23 @@ export class ShopStore {
         let requestPromise: Promise<IProduct[]> = ApiService.getProducts(sortType, limit, skip);
 
         this.requestItemsCall = fromPromise(requestPromise);
+        this.isResultHandled = false;
     }
 
     @action
     public replaceWithRequestedItems(): void {
-        this.requestItemsCall.promise.then(this.handleReplaceItems);
+        if (this.isResultHandled === false) {
+            this.requestItemsCall.promise.then(this.handleReplaceItems);
+            this.isResultHandled = true;
+        }
     }
 
     @action
     public addRequestedItems(): void {
-        this.requestItemsCall.promise.then(this.handleAddItems);
+        if (this.isResultHandled === false) {
+            this.requestItemsCall.promise.then(this.handleAddItems);
+            this.isResultHandled = true;
+        }
     }
 
     @action
