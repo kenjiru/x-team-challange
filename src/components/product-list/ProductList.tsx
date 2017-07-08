@@ -52,7 +52,7 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                         {this.renderAllItems()}
                     </ScrollContainer>
                 </div>
-                <LoadingIndicator/>
+                {this.renderLoadingIndicator()}
                 {this.renderEndOfList()}
             </div>
         );
@@ -73,6 +73,14 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     private renderItem(product: IProduct): ReactElement<any> {
         return <ProductItem key={product.id} product={product} width={ProductList.PRODUCT_WIDTH}
                             height={ProductList.PRODUCT_HEIGHT}/>;
+    }
+
+    private renderLoadingIndicator(): ReactElement<any> {
+        const shopStore: ShopStore = this.props.shopStore;
+
+        if (shopStore.requestItemsCall.state === "pending") {
+            return <LoadingIndicator/>;
+        }
     }
 
     private renderEndOfList(): ReactElement<any> {
