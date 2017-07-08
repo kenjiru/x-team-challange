@@ -11,6 +11,7 @@ export class ShopStore {
     private isResultHandled: boolean = false;
 
     @observable public items: IProduct[] = [];
+    @observable public hasMore: boolean = true;
     @observable public requestItemsCall: any = fromPromise(Promise.resolve(null));
 
     @action
@@ -54,7 +55,12 @@ export class ShopStore {
 
     @action
     private handleAddItems = (products: IProduct[]): void => {
-        this.items.push(...products);
+        if (products.length > 0) {
+            this.items.push(...products);
+        } else {
+            this.hasMore = false;
+        }
+
         this.requestItemsCall = fromPromise(Promise.resolve(null));
     }
 }

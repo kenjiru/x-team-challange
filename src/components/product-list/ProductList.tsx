@@ -53,6 +53,7 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                     </ScrollContainer>
                 </div>
                 <LoadingIndicator/>
+                {this.renderEndOfList()}
             </div>
         );
     }
@@ -74,6 +75,12 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                             height={ProductList.PRODUCT_HEIGHT}/>;
     }
 
+    private renderEndOfList(): ReactElement<any> {
+        if (this.props.shopStore.hasMore === false) {
+            return <div className="end-of-catalogues">~ end of catalogue ~</div>;
+        }
+    }
+
     private handleSort = (sortField: SortType): void => {
         this.setState({
             sortField
@@ -91,7 +98,9 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     }
 
     private handleLoading = (): void => {
-        this.props.shopStore.requestItems(this.state.sortField);
+        if (this.props.shopStore.hasMore) {
+            this.props.shopStore.requestItems(this.state.sortField);
+        }
     }
 
     private handleDisplay = (): void => {
