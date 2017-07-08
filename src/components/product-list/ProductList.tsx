@@ -44,7 +44,7 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                     </span>
                     <SortOptions onSort={this.handleSort} sortField={this.state.sortField}/>
                 </div>
-                <div ref={this.handleListRef}>
+                <div className="list-container" ref={this.handleListRef}>
                     <ScrollContainer className="list"
                                      onLoading={this.handleLoading}
                                      canLoad={this.canLoad()}

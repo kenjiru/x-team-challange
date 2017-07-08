@@ -11,9 +11,15 @@ class ProductItem extends React.Component<IProductItemProps, IProductItemState> 
         return (
             <div className="product-item" style={this.getItemStyle()}>
                 <div className="face" style={this.getFaceStyle()}>{this.props.product.face}</div>
-                <div className="id">id: {this.props.product.id}</div>
-                <div className="price">price: {this.getPrice()}</div>
-                <div className="date">added: {this.getDate()}</div>
+                <div className="id">
+                    <span className="label">id: </span>{this.props.product.id}
+                </div>
+                <div className="price">
+                    <span className="label">price: </span>{this.getPrice()}
+                </div>
+                <div className="date">
+                    <span className="label">added: </span>{this.getDate()}
+                </div>
             </div>
         );
     }

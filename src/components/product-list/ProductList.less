@@ -1,5 +1,6 @@
 .product-list {
-  position: relative;
+  display: flex;
+  flex-direction: column;
 
   .summary {
     display: inline-block;
@@ -10,16 +11,25 @@
     }
   }
 
-  .list {
-    margin-top: 10px;
-    height: 400px;
-    overflow-y: auto;
-    border: 1px solid gray;
+  .list-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    flex-grow: 2;
+    position: relative;
+    margin-bottom: 5px;
 
-    > div {
-      float: left;
-      margin: 5px;
-      padding: 4px;
+    .list {
+      margin-top: 10px;
+      min-height: 0px;
+      overflow-y: auto;
+      border: 1px solid gray;
+
+      > div {
+        float: left;
+        margin: 5px;
+        padding: 4px;
+      }
     }
   }
 

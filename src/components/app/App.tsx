@@ -5,6 +5,8 @@ import {Provider} from "mobx-react";
 import ProductList from "../product-list/ProductList";
 import shopStore from "../../model/ShopStore";
 
+import "./App.less";
+
 class App extends React.Component<any, any> {
     public render(): ReactElement<any> {
         return (
