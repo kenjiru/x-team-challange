@@ -4,7 +4,10 @@ import {ReactElement} from "react";
 import {observer} from "mobx-react";
 
 import {IProduct, ShopStore, SortType} from "../../model/ShopStore";
+import AdService from "../../services/AdService";
+
 import ProductItem from "../product-item/ProductItem";
+import AdItem from "../ad-item/AdItem";
 import LoadingIndicator from "../loading-indicator/LoadingIndicator";
 import ScrollContainer from "../scroll-container/ScrollContainer";
 import SortOptions from "../sort-options/SortOptions";
@@ -55,7 +58,15 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     }
 
     private renderAllItems(): ReactElement<any>[] {
-        return _.map(this.props.shopStore.items, this.renderItem);
+        return _.reduce(this.props.shopStore.items,
+            (result: ReactElement<any>[], product: IProduct): ReactElement<any>[] => {
+                if ((result.length + 1) % AdService.AD_FREQUENCY === 0) {
+                    result.push(<AdItem key={"ad-" + result.length} place={result.length}/>);
+                }
+                result.push(this.renderItem(product));
+
+                return result;
+            }, []);
     }
 
     private renderItem(product: IProduct): ReactElement<any> {
@@ -96,8 +107,10 @@ export class ProductList extends React.Component<IProductListProps, IProductList
     private determineInitialNumElements(): number {
         const numItemsOnRow: number = Math.floor(this.containerWidth / ProductList.PRODUCT_WIDTH);
         const numRows: number = Math.ceil(this.containerHeight / ProductList.PRODUCT_HEIGHT);
+        const numTotal: number = numItemsOnRow * numRows;
+        const numAds: number = Math.floor(numTotal / AdService.AD_FREQUENCY);
 
-        return numItemsOnRow * numRows;
+        return numTotal - numAds;
     }
 }
 
