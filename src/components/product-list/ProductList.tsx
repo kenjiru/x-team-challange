@@ -51,9 +51,9 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                                      onDisplay={this.handleDisplay}>
                         {this.renderAllItems()}
                     </ScrollContainer>
+                    {this.renderLoadingIndicator()}
+                    {this.renderEndOfList()}
                 </div>
-                {this.renderLoadingIndicator()}
-                {this.renderEndOfList()}
             </div>
         );
     }
