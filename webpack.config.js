@@ -2,7 +2,6 @@ var path = require("path");
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
-var BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 var src_dir = path.join(__dirname, "/src");
 const nodeEnv = process.env.NODE_ENV || "development";
@@ -100,9 +99,6 @@ var config = {
         }),
         new webpack.DefinePlugin({
             "process.env": {NODE_ENV: JSON.stringify(nodeEnv)}
-        }),
-        new BundleAnalyzerPlugin({
-            openAnalyzer: false
         })
     ],
     devServer: {
