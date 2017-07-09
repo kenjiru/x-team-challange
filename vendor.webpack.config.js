@@ -3,7 +3,9 @@ var path = require("path");
 
 module.exports = {
     entry: {
-        vendor: ["react", "react-dom"]
+        vendor: ["react", "react-dom", "mobx-react", "mobx-utils", "lodash", "numeral", "classnames",
+            "superagent", "superagent-promise", "superagent-prefix",
+            "moment", "moment-range", "moment-duration-format"]
     },
     output: {
         filename: "vendor.dll.js",
