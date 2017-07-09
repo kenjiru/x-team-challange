@@ -27,16 +27,16 @@
   },
   "devDependencies": {
     "@types/chai": "^4.0.1",
-    "@types/enzyme": "2.8.0",
+    "@types/enzyme": "^2.8.1",
     "@types/mocha": "^2.2.41",
-    "@types/react": "15.0.24",
-    "@types/react-dom": "15.5.0",
+    "@types/react": "^15.0.35",
+    "@types/react-dom": "^15.5.1",
     "@types/sinon": "^2.3.2",
     "autoprefixer": "^7.1.1",
     "autoprefixer-loader": "^3.2.0",
-    "chai": "^4.0.2",
+    "chai": "4.0.2",
     "css-loader": "^0.28.4",
-    "enzyme": "2.8.2",
+    "enzyme": "2.9.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.11.2",
     "html-minifier": "^3.1.0",
@@ -60,7 +60,7 @@
     "ts-node": "^3.1.0",
     "tslint": "^5.4.3",
     "tslint-loader": "^3.5.3",
-    "typescript": "2.2.2",
+    "typescript": "2.4.1",
     "typings": "^2.1.1",
     "url-loader": "~0.5.7",
     "webpack": "3.0.0",
@@ -73,7 +73,7 @@
     "build": "rm -rf dist/** && npm run build-vendor && webpack",
     "build-vendor": "webpack --config vendor.webpack.config.js",
     "test": "mocha -R spec --recursive -r ts-node/register -r jsdom-global/register -r ignore-styles src/**/*.spec.tsx",
-    "test-watch": "mocha-webpack --watch --require ts-node/register --require jsdom-global/register --require ignore-styles --webpack-config test.webpack.config.js src/**/*.spec.ts src/**/*.spec.tsx"
+    "test-watch": "mocha-webpack --watch --require ts-node/register --require jsdom-global/register --require ignore-styles --require src/util/tests-setup.ts --webpack-config test.webpack.config.js src/**/*.spec.ts src/**/*.spec.tsx"
   },
   "engines": {
     "npm": ">=2.0.0"
