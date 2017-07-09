@@ -4,7 +4,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 var src_dir = path.join(__dirname, "/src");
-const nodeEnv = process.env.NODE_ENV || "development";
+var nodeEnv = process.env.NODE_ENV || "development";
+var BUILD_FOLDER = "static";
 
 var config = {
     cache: true,
@@ -14,7 +15,7 @@ var config = {
         app: src_dir + "/app-bootstrap.tsx"
     },
     output: {
-        path: path.join(__dirname, "/dist"),
+        path: path.join(__dirname, BUILD_FOLDER),
         filename: "[name].js?[hash]"
     },
     resolve: {
@@ -60,14 +61,14 @@ var config = {
     plugins: [
         new webpack.DllReferencePlugin({
             context: '.',
-            manifest: require('./dist/vendor-manifest.json')
+            manifest: require('./' + BUILD_FOLDER + '/vendor-manifest.json')
         }),
         new HtmlWebpackPlugin({
             title: "React TypeScript demo",
             template: require("html-webpack-template"),
             appMountId: "app",
             scripts: [
-                "./dist/vendor.dll.js"
+                "./vendor.dll.js"
             ]
         }),
         new ExtractTextPlugin("[name].css?[hash]"),
