@@ -3,6 +3,8 @@ import {shallow, ShallowWrapper} from "enzyme";
 import {expect} from "chai";
 
 import {ShopStore} from "../../model/ShopStore";
+import ScrollContainer from "../scroll-container/ScrollContainer";
+
 import {ProductList, IProductListProps} from "./ProductList";
 
 describe("<ProductList/>", () => {
@@ -14,7 +16,7 @@ describe("<ProductList/>", () => {
 
             expect(wrapper.find(".summary")).to.have.length(1);
             expect(wrapper.find(".num-items")).to.have.length(1);
-            expect(wrapper.find("button")).to.have.length(1);
+            expect(wrapper.find(ScrollContainer)).to.have.length(1);
         });
 
         it("displays the number of items", () => {
