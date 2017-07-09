@@ -33,8 +33,8 @@ class SortOptions extends React.Component<ISortOptionsProps, ISortOptionsState> 
 interface ISortOptionsState {
 }
 
-interface ISortOptionsProps {
-    onSort?: (sortField: SortType) => void;
+export interface ISortOptionsProps {
+    onSort: (sortField: SortType) => void;
     sortField?: SortType;
 }
 
