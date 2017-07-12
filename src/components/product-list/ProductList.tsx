@@ -52,6 +52,7 @@ export class ProductList extends React.Component<IProductListProps, IProductList
                         {this.renderAllItems()}
                     </ScrollContainer>
                     {this.renderLoadingIndicator()}
+                    {this.renderLoadingError()}
                     {this.renderEndOfList()}
                 </div>
             </div>
@@ -80,6 +81,18 @@ export class ProductList extends React.Component<IProductListProps, IProductList
 
         if (shopStore.requestItemsCall.state === "pending") {
             return <LoadingIndicator/>;
+        }
+    }
+
+    private renderLoadingError(): ReactElement<any> {
+        const shopStore: ShopStore = this.props.shopStore;
+
+        if (shopStore.requestItemsCall.state === "rejected") {
+            const error: Error = shopStore.requestItemsCall.value;
+
+            return (
+                <div className="error-container">Error loading items: {error.message}</div>
+            );
         }
     }
 
