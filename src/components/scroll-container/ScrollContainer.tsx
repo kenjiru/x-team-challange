@@ -13,7 +13,7 @@ class ScrollContainer extends React.Component<IScrollContainerProps, IScrollCont
 
     public render(): React.ReactElement<any> {
         return (
-            <div className={this.getCLassName()} onScroll={this.handleScroll}>
+            <div className={this.getClassName()} onScroll={this.handleScroll}>
                 {this.props.children}
             </div>
         );
@@ -32,7 +32,7 @@ class ScrollContainer extends React.Component<IScrollContainerProps, IScrollCont
         }
     }
 
-    private getCLassName(): string {
+    private getClassName(): string {
         return classNames("scroll-container", this.props.className);
     }
 }
