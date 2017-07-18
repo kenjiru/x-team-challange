@@ -69,7 +69,8 @@ var config = {
             appMountId: "app",
             scripts: [
                 "./dist/vendor.dll.js"
-            ]
+            ],
+            inject: false
         }),
         new ExtractTextPlugin("[name].css?[hash]"),
         new webpack.LoaderOptionsPlugin({
